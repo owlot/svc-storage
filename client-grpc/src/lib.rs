@@ -1,4 +1,4 @@
-//! Exposes svc-template-rust Client Functions
+//! Exposes svc-storage-rust Client Functions
 
 /// Client Library: Client Functions, Structs
 pub mod client {

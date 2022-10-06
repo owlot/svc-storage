@@ -1,14 +1,14 @@
 //! gRPC client implementation
 
-///module svc_template generated from svc-template-grpc.proto
+///module svc_storage generated from svc-storage-grpc.proto
 // use std::time::SystemTime;
-use svc_template_client_grpc::client::{template_rpc_client::TemplateRpcClient, QueryIsReady};
+use svc_storage_client_grpc::client::{storage_rpc_client::StorageRpcClient, QueryIsReady};
 
-/// Example svc-template-client
+/// Example svc-storage-client
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let port = env!("GRPC_PORT");
-    let mut client = TemplateRpcClient::connect("http://[::1]:50051").await?;
+    let mut client = StorageRpcClient::connect("http://[::1]:50051").await?;
     let request = tonic::Request::new(QueryIsReady {
         // No arguments
     });

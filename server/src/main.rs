@@ -4,16 +4,16 @@ use std::env;
 
 #[allow(unused_qualifications)]
 mod grpc;
-use grpc::template_rpc_server::{TemplateRpc, TemplateRpcServer};
+use grpc::storage_rpc_server::{StorageRpc, StorageRpcServer};
 use grpc::{QueryIsReady, ReadyResponse};
 use tonic::{transport::Server, Request, Response, Status};
 
 ///Implementation of gRPC endpoints
 #[derive(Debug, Default, Copy, Clone)]
-pub struct TemplateImpl {}
+pub struct StorageImpl {}
 
 #[tonic::async_trait]
-impl TemplateRpc for TemplateImpl {
+impl StorageRpc for StorageImpl {
     /// Returns ready:true when service is available
     async fn is_ready(
         &self,
@@ -45,10 +45,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let (grpc_address, grpc_port) = get_grpc_addr_port();
     let full_grpc_addr = format!("{grpc_address}:{grpc_port}").parse()?;
 
-    let grpc_client = TemplateImpl::default();
+    let grpc_client = StorageImpl::default();
     //start server
     Server::builder()
-        .add_service(TemplateRpcServer::new(grpc_client))
+        .add_service(StorageRpcServer::new(grpc_client))
         .serve(full_grpc_addr)
         .await?;
     println!("gRPC server running at: {}", full_grpc_addr);
