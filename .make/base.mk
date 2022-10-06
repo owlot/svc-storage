@@ -29,7 +29,7 @@ docker_run = docker run \
 	-t $(SANITYCHECKS_IMAGE_NAME):$(SANITYCHEKCS_IMAGE_TAG) \
 	$(1)
 
-.SILENT: docker-pull
+.SILENT: *docker-pull
 
 .help-base:
 	@echo ""
