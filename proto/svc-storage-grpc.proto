@@ -3,7 +3,7 @@ syntax = "proto3";
 package grpc;
 
 // Heartbeat
-service TemplateRpc {
+service StorageRpc {
     // Common Interfaces
     rpc isReady (QueryIsReady) returns (ReadyResponse);
 }

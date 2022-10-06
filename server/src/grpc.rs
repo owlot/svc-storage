@@ -14,12 +14,12 @@ pub struct ReadyResponse {
     pub ready: bool,
 }
 /// Generated server implementations.
-pub mod template_rpc_server {
+pub mod storage_rpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with TemplateRpcServer.
+    ///Generated trait containing gRPC methods that should be implemented for use with StorageRpcServer.
     #[async_trait]
-    pub trait TemplateRpc: Send + Sync + 'static {
+    pub trait StorageRpc: Send + Sync + 'static {
         /// Common Interfaces
         async fn is_ready(
             &self,
@@ -28,13 +28,13 @@ pub mod template_rpc_server {
     }
     /// Heartbeat
     #[derive(Debug)]
-    pub struct TemplateRpcServer<T: TemplateRpc> {
+    pub struct StorageRpcServer<T: StorageRpc> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: TemplateRpc> TemplateRpcServer<T> {
+    impl<T: StorageRpc> StorageRpcServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -68,9 +68,9 @@ pub mod template_rpc_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for TemplateRpcServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for StorageRpcServer<T>
     where
-        T: TemplateRpc,
+        T: StorageRpc,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -86,10 +86,10 @@ pub mod template_rpc_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/grpc.TemplateRpc/isReady" => {
+                "/grpc.StorageRpc/isReady" => {
                     #[allow(non_camel_case_types)]
-                    struct isReadySvc<T: TemplateRpc>(pub Arc<T>);
-                    impl<T: TemplateRpc> tonic::server::UnaryService<super::QueryIsReady>
+                    struct isReadySvc<T: StorageRpc>(pub Arc<T>);
+                    impl<T: StorageRpc> tonic::server::UnaryService<super::QueryIsReady>
                     for isReadySvc<T> {
                         type Response = super::ReadyResponse;
                         type Future = BoxFuture<
@@ -137,7 +137,7 @@ pub mod template_rpc_server {
             }
         }
     }
-    impl<T: TemplateRpc> Clone for TemplateRpcServer<T> {
+    impl<T: StorageRpc> Clone for StorageRpcServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -147,7 +147,7 @@ pub mod template_rpc_server {
             }
         }
     }
-    impl<T: TemplateRpc> Clone for _Inner<T> {
+    impl<T: StorageRpc> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(self.0.clone())
         }
@@ -157,7 +157,7 @@ pub mod template_rpc_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: TemplateRpc> tonic::server::NamedService for TemplateRpcServer<T> {
-        const NAME: &'static str = "grpc.TemplateRpc";
+    impl<T: StorageRpc> tonic::server::NamedService for StorageRpcServer<T> {
+        const NAME: &'static str = "grpc.StorageRpc";
     }
 }
