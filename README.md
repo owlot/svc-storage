@@ -2,8 +2,8 @@
 
 # Storage Service
 
-![Rust Checks](https://github.com/arrow-air/svc-storage-rust/actions/workflows/rust_ci.yml/badge.svg?branch=main)
-![Python Flake8](https://github.com/arrow-air/svc-storage-rust/actions/workflows/python_ci.yml/badge.svg?branch=main)
+![Rust Checks](https://github.com/arrow-air/svc-storage/actions/workflows/rust_ci.yml/badge.svg?branch=main)
+![Python Flake8](https://github.com/arrow-air/svc-storage/actions/workflows/python_ci.yml/badge.svg?branch=main)
 ![Arrow DAO Discord](https://img.shields.io/discord/853833144037277726?style=plastic)
 
 ## :telescope: Overview
@@ -80,9 +80,9 @@ There are additional make targets available. You can find all possible targets b
 ## :scroll: Documentation
 The following documents are relevant to this service:
 - :construction: Requirements & User Stories
-- [Concept of Operations - `svc-FIXME`](./docs/conops.md)
-- [Software Design Document (SDD) - `svc-FIXME`](./docs/sdd.md)
-- [Interface Control Document (ICD) - `svc-FIXME`](./docs/icd.md)
+- [Concept of Operations - `svc-storage`](./docs/conops.md)
+- [Software Design Document (SDD) - `svc-storage`](./docs/sdd.md)
+- [Interface Control Document (ICD) - `svc-storage`](./docs/icd.md)
 
 ## :busts_in_silhouette: Arrow DAO
 Learn more about us:
@@ -93,6 +93,6 @@ Learn more about us:
 ## :exclamation: Treatment of `Cargo.lock`
 If you are building a non-end product like a library, include `Cargo.lock` in `.gitignore`.
 
-If you are building an end product like a command line tool, check `Cargo.lock` to the git. 
+If you are building an end product like a command line tool, check `Cargo.lock` to the git.
 
 Read more about it [here](https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html);
