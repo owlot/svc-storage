@@ -1,16 +1,13 @@
 /// Are you Ready?
 ///
 /// No arguments
-#[derive(Eq, Copy)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryIsReady {
-}
+#[derive(Eq, Copy, Clone, PartialEq, ::prost::Message)]
+pub struct QueryIsReady {}
 /// I'm Ready
-#[derive(Eq, Copy)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Eq, Copy, Clone, PartialEq, ::prost::Message)]
 pub struct ReadyResponse {
     /// True if ready
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub ready: bool,
 }
 /// Generated server implementations.
@@ -46,10 +43,7 @@ pub mod storage_rpc_server {
                 send_compression_encodings: Default::default(),
             }
         }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> InterceptedService<Self, F>
+        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
         {
@@ -77,10 +71,7 @@ pub mod storage_rpc_server {
         type Response = http::Response<tonic::body::BoxBody>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(
-            &mut self,
-            _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -91,10 +82,7 @@ pub mod storage_rpc_server {
                     struct isReadySvc<T: StorageRpc>(pub Arc<T>);
                     impl<T: StorageRpc> tonic::server::UnaryService<super::QueryIsReady> for isReadySvc<T> {
                         type Response = super::ReadyResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::QueryIsReady>,
@@ -111,28 +99,23 @@ pub mod storage_rpc_server {
                         let inner = inner.0;
                         let method = isReadySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
                     };
                     Box::pin(fut)
                 }
-                _ => {
-                    Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
-                                .body(empty_body())
-                                .unwrap(),
-                        )
-                    })
-                }
+                _ => Box::pin(async move {
+                    Ok(http::Response::builder()
+                        .status(200)
+                        .header("grpc-status", "12")
+                        .header("content-type", "application/grpc")
+                        .body(empty_body())
+                        .unwrap())
+                }),
             }
         }
     }
