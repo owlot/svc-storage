@@ -1,7 +1,7 @@
 ## DO NOT EDIT!
 # This file was provisioned by Terraform
 # File origin: https://github.com/Arrow-air/tf-github/tree/main/src/templates/rust-all/Dockerfile
-FROM arrow-rust:latest AS build
+FROM ghcr.io/arrow-air/tools/arrow-rust:latest AS build
 
 ARG RELEASE_TARGET=x86_64-unknown-linux-musl
 
