@@ -5,7 +5,7 @@
 SHELL := /bin/bash
 
 SANITYCHECKS_IMAGE_NAME := ghcr.io/arrow-air/tools/arrow-rust
-SANITYCHEKCS_IMAGE_TAG  := 0.1.0
+SANITYCHEKCS_IMAGE_TAG  := latest
 
 SOURCE_PATH      ?= $(PWD)
 
