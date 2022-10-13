@@ -33,7 +33,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pre_release_branches: develop
-          try_run: 1
+          dry_run: 1
 
       - name: Changelog
         id: changelog
@@ -96,8 +96,8 @@ jobs:
           body: |
             Release ${{ steps.tag_version.outputs.new_tag }}
           labels: autorelease
-          branch: automatic-release
-          branch-suffix: -${{ steps.tag_version.outputs.new_version }}
+          branch: automatic-release-${{ steps.tag_version.outputs.new_version }}
+          branch-suffix: short-commit-hash
 
       - name: Checkout release branch
         uses: actions/checkout@v2
