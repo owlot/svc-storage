@@ -86,7 +86,10 @@ jobs:
 
       - name: Update CHANGELOG.md
         run: |
-          echo '${{ steps.changelog.outputs.changelog }}' | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md
+          cat - CHANGELOG.md > temp <<'CHANGELOG.md-EOF'
+          ${{ steps.changelog.outputs.changelog }}
+          CHANGELOG.md-EOF
+          mv temp CHANGELOG.md
 
       - name: Create Pull Request
         id: cpr
