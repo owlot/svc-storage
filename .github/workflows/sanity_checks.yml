@@ -41,3 +41,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: make toml-test
+
+  commit-msg:
+    name: Commit message Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: npm install -g @commitlint/config-conventional && npx commitlint --from=${{ github.event.pull_request.base.sha }}
