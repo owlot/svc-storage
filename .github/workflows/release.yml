@@ -101,11 +101,11 @@ jobs:
           branch: automatic-release-${{ steps.tag_version.outputs.new_version }}
           branch-suffix: short-commit-hash
 
-      - name: Checkout release branch
-        uses: actions/checkout@v2
-        with:
-          ref: automatic-release-${{ steps.tag_version.outputs.new_version }}
-          fetch-depth: 0
+          #      - name: Checkout release branch
+#        uses: actions/checkout@v2
+#        with:
+#          ref: automatic-release-${{ steps.tag_version.outputs.new_version }}
+#          fetch-depth: 0
 
       - name: Build and publish client
         run: |
