@@ -1,3 +1,9 @@
+## [Release 0.4.6-develop.0](https://github.com/owlot/svc-storage/releases/tag/v0.4.6-develop.0)
+
+### 🐛 Fixes
+
+- release workflow ([`5ba936f`](https://github.com/owlot/svc-storage/commit/5ba936fd7d8297ef842d16997a8171f463e3bd19))
+
 ## [Release 0.4.5-develop.0](https://github.com/owlot/svc-storage/releases/tag/v0.4.5-develop.0)
 
 ### 🐛 Fixes
