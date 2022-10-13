@@ -25,12 +25,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Push New Tag
+      - name: Determine new Tag and Release Notes
         uses: mathieudutour/github-tag-action@v6.0
         id: tag_version
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pre_release_branches: develop
+          try_run: 1
 
       - name: Changelog
         id: changelog
@@ -78,6 +79,7 @@ jobs:
         run: |
           cargo install cargo-edit
           cargo set-version ${{ steps.tag_version.outputs.new_version }}
+          rm -rf .cargo/registry
           make rust-publish
 
       - name: Update CHANGELOG.md
@@ -90,12 +92,24 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Update changelog and manifest"
-          title: "ci: Release ${{ steps.tag_version.outputs.new_version }}"
+          title: "chore(ci): Release ${{ steps.tag_version.outputs.new_version }}"
           body: |
             Release ${{ steps.tag_version.outputs.new_tag }}
           labels: autorelease
           branch: automatic-release
           branch-suffix: -${{ steps.tag_version.outputs.new_version }}
+
+      - name: Checkout release branch
+        uses: actions/checkout@v2
+        with:
+          ref: automatic-release-${{ steps.tag_version.outputs.new_version }}
+          fetch-depth: 0
+
+      - name: Push New Tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.tag_version.outputs.new_tag }}
 
       - name: Create Release
         id: create_release

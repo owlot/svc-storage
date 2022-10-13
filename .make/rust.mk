@@ -61,12 +61,12 @@ rust-build: check-cargo-registry rust-docker-pull
 	@echo "$(CYAN)Running cargo build...$(SGR0)"
 	@$(call cargo_run,build)
 
-rust-release: rust-docker-pull
+rust-release: check-cargo-registry rust-docker-pull
 	@echo "$(CYAN)Running cargo build --release...$(SGR0)"
 	@$(call cargo_run,build,--release --target $(RELEASE_TARGET))
 
-rust-publish: rust-docker-pull
-	@echo "$(CYAN)Running cargo build --release...$(SGR0)"
+rust-publish: check-cargo-registry rust-docker-pull
+	@echo "$(CYAN)Running cargo publish --package $(PACKAGE_NAME)-client-grpc...$(SGR0)"
 ifeq ("$(PUBLISH_DRY_RUN)", "0")
 	@echo $(call cargo_run,publish,--package $(PACKAGE_NAME)-client-grpc --target $(RELEASE_TARGET))
 else
