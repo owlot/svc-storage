@@ -18,6 +18,8 @@ jobs:
     permissions:
       contents: write
       packages: write
+      deployments: write
+      pull-requests: write
     runs-on: ubuntu-latest
     concurrency:
       group: release-${{ github.head_ref || 'main' }}
