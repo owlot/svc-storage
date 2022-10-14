@@ -1,3 +1,14 @@
+## [Release 0.4.14-develop.0](https://github.com/owlot/svc-storage/releases/tag/v0.4.14-develop.0)
+
+### 🐛 Fixes
+
+- create pr and merge ([`fbaa29f`](https://github.com/owlot/svc-storage/commit/fbaa29f9e46113b9a91923b974ebbe2157439636))
+
+### 🛠 Maintenance
+
+-  **ci:** update changelog\n\n[skip ci] ([`198b9ac`](https://github.com/owlot/svc-storage/commit/198b9acd321e7fa4849ee087637afba1866141c6))
+-  **ci:** update package version\n\n[skip ci] ([`7316590`](https://github.com/owlot/svc-storage/commit/73165900f7adb9b73e82bbd6eee50183ee32e112))
+
 ## [Release 0.4.13-develop.2](https://github.com/owlot/svc-storage/releases/tag/v0.4.13-develop.2)
 
 ## [Release 0.4.6-develop.1](https://github.com/owlot/svc-storage/releases/tag/v0.4.6-develop.1)
