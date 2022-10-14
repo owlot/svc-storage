@@ -12,8 +12,8 @@ env:
   TERM: xterm
 
 jobs:
-  release:
-    name: Tag and Release
+  prepare:
+    name: Create Tag and Release notes
     if: ${{ !contains(github.event.head_commit.message, 'Provisioned by Terraform') }}
     permissions:
       contents: write
@@ -45,7 +45,7 @@ jobs:
           nextReleaseTagName: ${{ steps.tag_version.outputs.new_tag }}
           nextReleaseName: "Release ${{ steps.tag_version.outputs.new_version }}"
 
-      - name: Update and commit CHANGELOG.md
+      - name: Update CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHANGED_FILE: "CHANGELOG.md"
@@ -54,32 +54,71 @@ jobs:
           ${{ steps.changelog.outputs.changelog }}
           CHANGELOG.md-EOF
           mv temp CHANGELOG.md
-          export MESSAGE="chore(ci): update changelog\n\n[skip ci]"
-          export CONTENT=$(base64 -i ${{ env.CHANGED_FILE }})
-          export SHA=$(git rev-parse ${{ github.ref_name }}:${{ env.CHANGED_FILE }})
-          gh api --method PUT /repos/:owner/:repo/contents/${{ env.CHANGED_FILE }} \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="${{ github.ref_name }}" \
-            --field sha="$SHA"
+#          git add CHANGELOG.md
+#          git commit -m "chore(ci): update changelog\n\n[skip ci]"
+#          export MESSAGE="chore(ci): update changelog\n\n[skip ci]"
+#          export CONTENT=$(base64 -i ${{ env.CHANGED_FILE }})
+#          export SHA=$(git rev-parse ${{ github.ref_name }}:${{ env.CHANGED_FILE }})
+#          gh api --method PUT /repos/:owner/:repo/contents/${{ env.CHANGED_FILE }} \
+#            --field message="$MESSAGE" \
+#            --field content="$CONTENT" \
+#            --field encoding="base64" \
+#            --field branch="${{ github.ref_name }}" \
+#            --field sha="$SHA"
 
-      - name: Update and commit package version
+      - name: Update package version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHANGED_FILE: "Cargo.toml"
         run: |
           cargo install cargo-edit
           cargo set-version ${{ steps.tag_version.outputs.new_version }}
-          export MESSAGE="chore(ci): update package version\n\n[skip ci]"
-          export CONTENT=$(base64 -i ${{ env.CHANGED_FILE }})
-          export SHA=$(git rev-parse ${{ github.ref_name }}:${{ env.CHANGED_FILE }})
-          gh api --method PUT /repos/:owner/:repo/contents/${{ env.CHANGED_FILE }} \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="${{ github.ref_name }}" \
-            --field sha="$SHA"
+#          git add Cargo.toml
+#          git commit -m "chore(ci): update package version\n\n[skip ci]"
+#          export MESSAGE="chore(ci): update package version\n\n[skip ci]"
+#          export CONTENT=$(base64 -i ${{ env.CHANGED_FILE }})
+#          export SHA=$(git rev-parse ${{ github.ref_name }}:${{ env.CHANGED_FILE }})
+#          gh api --method PUT /repos/:owner/:repo/contents/${{ env.CHANGED_FILE }} \
+#            --field message="$MESSAGE" \
+#            --field content="$CONTENT" \
+#            --field encoding="base64" \
+#            --field branch="${{ github.ref_name }}" \
+#            --field sha="$SHA"
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update changelog and manifest\n\n[skip ci]"
+          title: "ci(release): Release ${{ steps.tag_version.outputs.new_version }}"
+          body: |
+            Release ${{ steps.tag_version.outputs.new_tag }}
+          labels: autorelease
+          branch: automatic-release-${{ steps.tag_version.outputs.new_version }}
+          branch-suffix: short-commit-hash
+      - name: Approve Pull Request
+        uses: juliangruber/approve-pull-request-action@v1.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.cpr.outputs.pull-request-number }}
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.cpr.outputs.pull-request-number }}
+          method: squash
+
+      - name: Checkout Latest changes
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Push New Tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.tag_version.outputs.new_tag }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -114,20 +153,6 @@ jobs:
 #          tags: ${{ steps.meta.outputs.tags }}
 #          labels: ${{ steps.meta.outputs.labels }}
 #          platforms: linux/amd64,linux/arm64
-
-#      - name: Create Pull Request
-#        id: cpr
-#        uses: peter-evans/create-pull-request@v4
-#        with:
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          commit-message: "Update changelog and manifest\n\n[skip ci]"
-#          title: "ci(release): Release ${{ steps.tag_version.outputs.new_version }}"
-#          body: |
-#            Release ${{ steps.tag_version.outputs.new_tag }}
-#          labels: autorelease
-#          branch: automatic-release-${{ steps.tag_version.outputs.new_version }}
-#          branch-suffix: short-commit-hash
-
       - name: Build and publish client
         run: |
           make rust-publish
@@ -137,13 +162,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git push
-
-      - name: Push New Tag
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ steps.tag_version.outputs.new_tag }}
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
