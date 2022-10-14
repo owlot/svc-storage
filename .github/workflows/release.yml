@@ -45,40 +45,40 @@ jobs:
           nextReleaseTagName: ${{ steps.tag_version.outputs.new_tag }}
           nextReleaseName: "Release ${{ steps.tag_version.outputs.new_version }}"
 
-      - name: Update and commit package version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cargo install cargo-edit
-          cargo set-version ${{ steps.tag_version.outputs.new_version }}
-          export FILE_TO_COMMIT="Cargo.toml"
-          export MESSAGE="chore(ci): update package version\n\n[skip ci]"
-          export CONTENT=$( base64 -i $FILE_TO_COMMIT )
-          export SHA=$( git rev-parse $GITHUB_REF_NAME:$FILE_TO_COMMIT )
-          gh api --method PUT /repos/:owner/:repo/contents/CHANGELOG.md \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="$GITHUB_REF_NAME" \
-            --field sha="$SHA"
-
       - name: Update and commit CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGED_FILE: "CHANGELOG.md"
         run: |
           cat - CHANGELOG.md > temp <<'CHANGELOG.md-EOF'
           ${{ steps.changelog.outputs.changelog }}
           CHANGELOG.md-EOF
           mv temp CHANGELOG.md
-          export FILE_TO_COMMIT="CHANGELOG.md"
           export MESSAGE="chore(ci): update changelog\n\n[skip ci]"
-          export CONTENT=$( base64 -i $FILE_TO_COMMIT )
-          export SHA=$( git rev-parse $GITHUB_REF_NAME:$FILE_TO_COMMIT )
-          gh api --method PUT /repos/:owner/:repo/contents/CHANGELOG.md \
+          export CONTENT=$(base64 -i ${{ env.CHANGED_FILE }})
+          export SHA=$(git rev-parse ${{ github.ref_name }}:${{ env.CHANGED_FILE }})
+          gh api --method PUT /repos/:owner/:repo/contents/${{ env.CHANGED_FILE }} \
             --field message="$MESSAGE" \
             --field content="$CONTENT" \
             --field encoding="base64" \
-            --field branch="$GITHUB_REF_NAME" \
+            --field branch="${{ github.ref_name }}" \
+            --field sha="$SHA"
+
+      - name: Update and commit package version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGED_FILE: "Cargo.toml"
+        run: |
+          cargo install cargo-edit
+          cargo set-version ${{ steps.tag_version.outputs.new_version }}
+          export MESSAGE="chore(ci): update package version\n\n[skip ci]"
+          export CONTENT=$(base64 -i ${{ env.CHANGED_FILE }})
+          export SHA=$(git rev-parse ${{ github.ref_name }}:${{ env.CHANGED_FILE }})
+          gh api --method PUT /repos/:owner/:repo/contents/${{ env.CHANGED_FILE }} \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="${{ github.ref_name }}" \
             --field sha="$SHA"
 
       - name: Set up QEMU
