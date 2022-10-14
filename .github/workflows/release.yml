@@ -153,15 +153,11 @@ jobs:
 #          tags: ${{ steps.meta.outputs.tags }}
 #          labels: ${{ steps.meta.outputs.labels }}
 #          platforms: linux/amd64,linux/arm64
+#
       - name: Build and publish client
         run: |
           make rust-publish
 
-      - name: Push README.md and Cargo.toml changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git push
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
