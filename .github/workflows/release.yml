@@ -97,11 +97,11 @@ jobs:
           labels: autorelease
           branch: automatic-release-${{ steps.tag_version.outputs.new_version }}
           branch-suffix: short-commit-hash
-      - name: Approve Pull Request
-        uses: juliangruber/approve-pull-request-action@v1.1.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ steps.cpr.outputs.pull-request-number }}
+#      - name: Approve Pull Request
+#        uses: juliangruber/approve-pull-request-action@v1.1.1
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          number: ${{ steps.cpr.outputs.pull-request-number }}
       - name: Merge Pull Request
         uses: juliangruber/merge-pull-request-action@v1.1.1
         with:
