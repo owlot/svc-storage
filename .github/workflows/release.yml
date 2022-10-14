@@ -96,11 +96,10 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Update changelog and manifest"
+          commit-message: "Update changelog and manifest\n\n[skip ci]"
           title: "ci(release): Release ${{ steps.tag_version.outputs.new_version }}"
           body: |
             Release ${{ steps.tag_version.outputs.new_tag }}
-            [skip ci]
           labels: autorelease
           branch: automatic-release-${{ steps.tag_version.outputs.new_version }}
           branch-suffix: short-commit-hash
