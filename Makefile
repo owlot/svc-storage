@@ -2,14 +2,14 @@
 # This file was provisioned by Terraform
 # File origin: https://github.com/Arrow-air/tf-github/tree/main/src/templates/rust-all/Makefile.tftpl
 
-DOCKER_NAME := arrow-svc-template-rust
+DOCKER_NAME := arrow-svc-storage
 
 # Combined targets
 
-IMAGE_NAME   := svc-template-rust
+IMAGE_NAME   := svc-storage
 PACKAGE_NAME := $(IMAGE_NAME)
 DOCKER_PORT  := 8080
-HOST_PORT    := 8080
+HOST_PORT    := 8000
 
 help: .help-base .help-rust .help-python .help-cspell .help-markdown .help-editorconfig .help-toml .help-docker
 build: rust-build docker-build
@@ -18,6 +18,7 @@ all: test build release
 include .make/docker.mk
 
 release: rust-release
+publish: rust-publish
 test: rust-test-all cspell-test toml-test python-test md-test-links editorconfig-test
 tidy: rust-tidy toml-tidy python-tidy
 

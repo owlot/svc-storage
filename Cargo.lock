@@ -794,8 +794,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "svc-template"
-version = "0.1.0"
+name = "svc-storage"
+version = "0.0.0"
 dependencies = [
  "cargo-husky",
  "chrono",
@@ -812,8 +812,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "svc-template-client-grpc"
-version = "0.1.0"
+name = "svc-storage-client-grpc"
+version = "0.0.0"
 dependencies = [
  "prost",
  "prost-types",
