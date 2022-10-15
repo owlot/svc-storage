@@ -17,6 +17,7 @@ env:
 jobs:
   check:
     name: Checks
+    if: ${{ !contains(github.event.head_commit.message, 'Provisioned by Terraform') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
