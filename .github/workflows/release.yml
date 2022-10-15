@@ -47,7 +47,7 @@ jobs:
         uses: mrchief/universal-changelog-action@v1.3.1
         with:
           previousReleaseTagNameOrSha: ${{ steps.tag_version.outputs.previous_tag }}
-          nextReleaseTagName: ${{ steps.tag_version.outputs.new_tag }}
+          nextReleaseTagName: ${{ github.sha }}
           nextReleaseName: "Release ${{ steps.tag_version.outputs.new_version }}"
 
       - name: Update CHANGELOG.md
