@@ -1,3 +1,8 @@
 {
+  "ignorePatterns": [
+    {
+      "pattern": "^\/?(FIXME|TODO)\/?"
+    }
+  ],
+  "timeout": "20s"
 }
-
