@@ -1,16 +1,7 @@
 [package]
 edition = "2021"
 name    = "svc-storage-client-grpc"
-<<<<<<< HEAD
-<<<<<<< HEAD
 version = "0.0.0"
-=======
-version = "0.4.19-develop.0"
-=======
-version = "0.4.22-develop.0"
->>>>>>> 2f9c581 (chore(ci): update files for release<br/><br/>[skip ci])
-
->>>>>>> ab4354a (chore(ci): update files for release\n\n[skip ci])
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
