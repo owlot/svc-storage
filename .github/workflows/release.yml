@@ -140,14 +140,14 @@ jobs:
             type=semver,pattern={{version}},value=${{ steps.tag_version.outputs.new_tag }}
             type=semver,pattern={{major}}.{{minor}},value=${{ steps.tag_version.outputs.new_tag }}
 
-#      - name: Build and push Docker image
-#        uses: docker/build-push-action@v3
-#        with:
-#          push: true
-#          tags: ${{ steps.meta.outputs.tags }}
-#          labels: ${{ steps.meta.outputs.labels }}
-#          platforms: linux/amd64,linux/arm64
-#
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
+
       - name: Build and publish client
         run: |
           make rust-publish
