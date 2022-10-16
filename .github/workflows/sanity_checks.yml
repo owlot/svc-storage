@@ -51,3 +51,35 @@ jobs:
         with:
           fetch-depth: 0
       - run: npm install -g @commitlint/config-conventional && npx commitlint --from=${{ github.event.pull_request.base.sha }}
+
+  release-notes:
+    name: Preview Release Notes
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog
+        id: changelog
+        uses: mrchief/universal-changelog-action@v1.3.1
+        with:
+          previousReleaseTagNameOrSha: ${{ github.event.pull_request.base.sha }}
+          nextReleaseTagName: ${{ github.sha }}
+          nextReleaseName: "Release ${{ steps.tag_version.outputs.new_version }}"
+
+      - name: Add PR Comment with Changelog Output
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          message: |
+            <details>
+            <summary>This PR will generate the following release notes when merged:</summary>
+
+            ${{ steps.changelog.outputs.changelog }}
+
+            </details>
+          comment_includes: 'This PR will generate the following release notes when merged'
+        continue-on-error: true
