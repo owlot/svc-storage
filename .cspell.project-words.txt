@@ -19,3 +19,6 @@ chrono
 serde
 vertiport
 vertiports
+codeowners
+commitlint
+eddbabf
