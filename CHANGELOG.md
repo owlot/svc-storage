@@ -1,4 +1,4 @@
-## [Release 0.0.1-develop.0](https://github.com/owlot/svc-storage/releases/tag/3a436990ada94f4fe5256c23eada9643a5d72249)
+## [Release 0.0.1-develop.0](https://github.com/owlot/svc-storage/releases/tag/v0.0.1-develop.0)
 
 ### 🐛 Fixes
 
