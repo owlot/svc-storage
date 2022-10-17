@@ -101,5 +101,5 @@ rust-tidy: check-cargo-registry rust-docker-pull
 	@echo "$(CYAN)Running rust file formatting fixes...$(SGR0)"
 	@$(call cargo_run,fmt,--all)
 
-rust-test-all: rust-clean rust-build rust-check rust-test rust-clippy rust-tidy
+rust-test-all: rust-build rust-check rust-test rust-clippy rust-fmt
 rust-all: rust-clean rust-test-all rust-release

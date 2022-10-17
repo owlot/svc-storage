@@ -44,7 +44,7 @@ jobs:
 
       - name: Generate Changelog
         id: changelog
-        uses: mrchief/universal-changelog-action@v1.3.1
+        uses: mrchief/universal-changelog-action@v1.3.2
         with:
           previousReleaseTagNameOrSha: ${{ steps.tag_version.outputs.previous_tag }}
           nextReleaseTagName: ${{ github.sha }}
@@ -55,6 +55,7 @@ jobs:
           cat - CHANGELOG.md > temp <<'CHANGELOG.md-EOF'
           ${{ steps.changelog.outputs.changelog }}
           CHANGELOG.md-EOF
+          sed -i 's/releases\/tag\/${{ github.sha }}/releases\/tag\/${{ steps.tag_version.outputs.new_tag }}/g' temp
           mv temp CHANGELOG.md
 
       - name: Update package version
