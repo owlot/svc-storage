@@ -4,8 +4,8 @@
 
 SHELL := /bin/bash
 
-SANITYCHECKS_IMAGE_NAME := ghcr.io/arrow-air/tools/arrow-rust
-SANITYCHEKCS_IMAGE_TAG  := latest
+SANITYCHECKS_IMAGE_NAME := ghcr.io/arrow-air/tools/arrow-sanitychecks
+SANITYCHEKCS_IMAGE_TAG  := 0.1
 
 SOURCE_PATH      ?= $(PWD)
 
