@@ -8,9 +8,6 @@ env:
   TERM: xterm
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 jobs:
@@ -45,17 +42,15 @@ jobs:
   commit-msg:
     name: Commit message Check
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - run: npm install -g @commitlint/config-conventional && npx commitlint --from=${{ github.event.pull_request.base.sha }}
+      - run: npx commitlint --from=${{ github.event.pull_request.base.sha }}
 
   release-notes:
     name: Preview Release Notes
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -72,7 +67,7 @@ jobs:
 
       - name: Add PR Comment with Changelog Output
         uses: thollander/actions-comment-pull-request@v1
-        if: github.event_name == 'pull_request'
+        continue-on-error: true
         with:
           message: |
             <details>
@@ -82,4 +77,3 @@ jobs:
 
             </details>
           comment_includes: 'This PR will generate the following release notes when merged'
-        continue-on-error: true
