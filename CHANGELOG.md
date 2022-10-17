@@ -1,3 +1,23 @@
+## [Release 0.0.2](https://github.com/owlot/svc-storage/releases/tag/v0.0.2)
+
+### 🛠 Maintenance
+
+-  **ci:** update changelog ([`7bef2a4`](https://github.com/owlot/svc-storage/commit/7bef2a4b92fb0181eb778601bdc1f0c6843c2374))
+-  **ci:** update package version ([`88aa207`](https://github.com/owlot/svc-storage/commit/88aa2072d936285bb1839ff8bcc24a75e69ab746))
+-  **ci:** update package version<br/><br/>[skip ci] ([`b29506e`](https://github.com/owlot/svc-storage/commit/b29506e9087a9accd5126e29f4f543cea34a8247))
+-  **ci:** .make/rust.mk - provisioned by terraform ([`e3ca9d9`](https://github.com/owlot/svc-storage/commit/e3ca9d95bdfe4ee97f3cefaa218a00eb4c58a773))
+-  **ci:** .editorconfig - provisioned by terraform ([`57190ab`](https://github.com/owlot/svc-storage/commit/57190ab0da77179bf3697ae327ace97259941baa))
+-  **ci:** .github/workflows/sanity_checks.yml - provisioned by terraform ([`85c1536`](https://github.com/owlot/svc-storage/commit/85c153631c50952538242299810ce9d780ad54e4))
+-  **ci:** .github/workflows/sanity_checks.yml - provisioned by terraform ([`76ee786`](https://github.com/owlot/svc-storage/commit/76ee78641b96a2240252282a2aeb8446b50648f1))
+-  **cspell:** add words ([`ecf3467`](https://github.com/owlot/svc-storage/commit/ecf34670f7425e0c196932085d1bee2bc8637fa2))
+- fix new release tags ([`14c13c5`](https://github.com/owlot/svc-storage/commit/14c13c593f1dc60a28e804221e2d6ef83ccd7ad9))
+-  **ci:** .github/workflows/release.yml - provisioned by terraform ([`0300eca`](https://github.com/owlot/svc-storage/commit/0300eca65d4e699400ac8eee4653fe2d93a1c13b))
+-  **ci:** update changelog ([`c58f272`](https://github.com/owlot/svc-storage/commit/c58f272caff8a709a632fe19eafaa5919fe5ed3f))
+-  **ci:** update package version ([`8640d76`](https://github.com/owlot/svc-storage/commit/8640d76dcc1068dc910da7d35ca0ee383c044e02))
+-  **ci:** update package version<br/><br/>[skip ci] ([`ba4e61f`](https://github.com/owlot/svc-storage/commit/ba4e61febd1dc9c0aac8e50c73789689451bf366))
+-  **ci:** .github/workflows/release.yml - provisioned by terraform ([`64bfac6`](https://github.com/owlot/svc-storage/commit/64bfac6cf9be7e150cbacfd84cfd70a0f981850b))
+-  **ci:** .github/workflows/release.yml - provisioned by terraform ([`2a887c4`](https://github.com/owlot/svc-storage/commit/2a887c4853079aa2413578cdce05170a451f3f4a))
+
 ## [Release 0.0.2-develop.0](https://github.com/owlot/svc-storage/releases/tag/v0.0.2-develop.0)
 
 ### 🛠 Maintenance
