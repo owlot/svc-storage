@@ -44,7 +44,7 @@ jobs:
 
       - name: Generate Changelog
         id: changelog
-        uses: mrchief/universal-changelog-action@v1.3.1
+        uses: mrchief/universal-changelog-action@v1
         with:
           previousReleaseTagNameOrSha: ${{ steps.tag_version.outputs.previous_tag }}
           nextReleaseTagName: ${{ github.sha }}
