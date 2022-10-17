@@ -2,6 +2,7 @@
 edition = "2021"
 name    = "svc-storage-client-grpc"
 version = "0.0.2-develop.0"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
