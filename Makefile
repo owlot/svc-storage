@@ -8,7 +8,7 @@ DOCKER_NAME := arrow-svc-storage
 
 IMAGE_NAME   := svc-storage
 PACKAGE_NAME := $(IMAGE_NAME)
-DOCKER_PORT  := 8080
+DOCKER_PORT  := 8000
 HOST_PORT    := 8000
 
 help: .help-base .help-rust .help-python .help-cspell .help-markdown .help-editorconfig .help-toml .help-docker
@@ -18,9 +18,8 @@ all: test build release
 include .make/docker.mk
 
 release: rust-release
-publish: rust-publish
 test: rust-test-all cspell-test toml-test python-test md-test-links editorconfig-test
-tidy: rust-tidy toml-tidy python-tidy
+tidy: rust-tidy toml-tidy python-tidy editorconfig-tidy
 
 include .make/base.mk
 include .make/cspell.mk
